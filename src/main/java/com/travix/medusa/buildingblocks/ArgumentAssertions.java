@@ -13,6 +13,8 @@ public final class ArgumentAssertions {
 
     public static String NULL_MESSAGE = "%s must not be null.";
     public static String LAST_DATE_CAN_NOT_BE_IN_THE_PAST = "%s must be later than %s.";
+    public static String STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS = "%s must has at least %b characters, and not contain emtpy spaces.";
+    public static String MUST_BE_BETWEEN = "%b must be between %b and %b.";
 
     public static <T> T assertNonNull(String name, T target) {
         if (target == null) {
@@ -28,6 +30,26 @@ public final class ArgumentAssertions {
         }
 
         throw new IllegalArgumentException(getErrorMessage(LAST_DATE_CAN_NOT_BE_IN_THE_PAST, targetName, initialName));
+    }
+
+    public static String assertNonEmptyLength(String name, int length, String target) {
+        if (target != null && !target.isBlank() && target.length() == length && !target.contains(" ")) {
+            return target;
+        }
+
+        throw new IllegalArgumentException(getErrorMessage(STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS, name, length));
+    }
+
+    public static int assertBetween(String name, int min, int max, int target) {
+        if (target >= min && target <= max) {
+            return target;
+        }
+
+        throw new IllegalArgumentException(getErrorMessage(MUST_BE_BETWEEN, name, min, max));
+    }
+
+    public static int assertMajorThanZeroAndUpTo(String name, int max, int target) {
+        return assertBetween(name, 1, max, target);
     }
 
     @VisibleForTesting

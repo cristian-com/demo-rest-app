@@ -8,16 +8,47 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 import static com.travix.medusa.buildingblocks.ArgumentAssertions.LAST_DATE_CAN_NOT_BE_IN_THE_PAST
+import static com.travix.medusa.buildingblocks.ArgumentAssertions.MUST_BE_BETWEEN
 import static com.travix.medusa.buildingblocks.ArgumentAssertions.NULL_MESSAGE
+import static com.travix.medusa.buildingblocks.ArgumentAssertions.STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS
 import static com.travix.medusa.buildingblocks.ArgumentAssertions.getErrorMessage
 import static com.travix.medusa.busyflights.domain.busyflights.FlightSearchPeriod.DEPARTURE_DATE
 import static com.travix.medusa.busyflights.domain.busyflights.FlightSearchPeriod.DEPARTURE_TIME
 import static com.travix.medusa.busyflights.domain.busyflights.FlightSearchPeriod.RETURN_TIME
+import static com.travix.medusa.busyflights.domain.busyflights.IATACode.CODE
 
 /**
  * Specification for flight search object
  */
 class FlightSearchSpec extends Specification {
+
+    // ************************* Number of passengers ************************* \\
+
+    def "The minimum number of passengers is 1"() {
+        when:
+        new PassengersNumber(num as Integer)
+
+        then:
+        def e = thrown(IllegalArgumentException)
+        e.message == getErrorMessage(MUST_BE_BETWEEN, CODE, 1, 4)
+
+        where:
+        num << [-1, -100, 0]
+    }
+
+    // ************************* IANA Codes ************************* \\
+
+    def "IATA code must have 3 non-empty characters"() {
+        when:
+        new IATACode(code)
+
+        then:
+        def e = thrown(IllegalArgumentException)
+        e.message == getErrorMessage(STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS, CODE, 3)
+
+        where:
+        code << ["  ", "", "     ", "aa ", "a a", "aaa ", " aaa", null]
+    }
 
     // ************************* Search Period ************************* \\
 

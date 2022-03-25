@@ -1,13 +1,10 @@
 package com.travix.medusa.busyflights.domain.busyflights;
 
-import java.time.LocalDate;
-
 public class FlightSearch {
 
-    String origin;
-    String destination;
-    LocalDate departureDate;
-    LocalDate returnDate;
+    IATACode origin;
+    IATACode destination;
+    FlightSearchPeriod flightSearchPeriod;
     Integer passengers;
 
 }
