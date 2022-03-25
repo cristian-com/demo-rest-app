@@ -8,6 +8,7 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @EqualsAndHashCode
@@ -35,8 +36,10 @@ public class FlightSearchPeriod implements ValueObject {
     public static FlightSearchPeriod of(LocalDate departureDate, LocalDate returnDate) {
         ArgumentAssertions.assertNonNull(DEPARTURE_DATE, departureDate);
 
+        LocalDateTime from = departureDate.atStartOfDay();
+        LocalDateTime to = returnDate == null ? null : LocalDateTime.of(returnDate, LocalTime.MAX);
 
-        return new FlightSearchPeriod(null, null);
+        return new FlightSearchPeriod(from, to);
     }
 
 }
