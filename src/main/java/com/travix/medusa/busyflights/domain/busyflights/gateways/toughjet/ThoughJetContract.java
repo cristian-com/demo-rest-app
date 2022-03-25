@@ -1,4 +1,4 @@
-package com.travix.medusa.busyflights.domain.toughjet;
+package com.travix.medusa.busyflights.domain.busyflights.gateways.toughjet;
 
 public class ThoughJetContract {
 

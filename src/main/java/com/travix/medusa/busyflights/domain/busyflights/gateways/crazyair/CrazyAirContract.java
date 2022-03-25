@@ -1,4 +1,4 @@
-package com.travix.medusa.busyflights.domain.crazyair;
+package com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair;
 
 public final class CrazyAirContract {
 
