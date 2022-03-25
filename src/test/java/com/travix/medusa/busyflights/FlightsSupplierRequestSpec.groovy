@@ -50,7 +50,7 @@ class FlightsSupplierRequestSpec extends Specification {
         def response
 
         when:
-        target.externalFlights(getValidSearch())
+        response = target.externalFlights(getValidSearch())
 
         then:
         assert response
