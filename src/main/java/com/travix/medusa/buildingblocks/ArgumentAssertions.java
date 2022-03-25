@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Util class for argument assertions targeting domain validations only and for testing use
  * <p>
- * All methods return the passed argument or the last (considered the target)
+ * All methods return the passed argument or the last (target)
  */
 public final class ArgumentAssertions {
 

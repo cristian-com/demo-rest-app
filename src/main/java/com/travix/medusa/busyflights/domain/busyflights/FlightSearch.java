@@ -9,11 +9,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-/**
- * This class is in charge of handling invariants and builders that make sense.
- * <p>
- * This would be a good candidate for an "Entity", let's say a "non-persistent" one
- */
 @Data
 @EqualsAndHashCode(of = "id")
 public class FlightSearch {
@@ -27,12 +22,12 @@ public class FlightSearch {
     private final Serializable id;
     private IATACode origin;
     private IATACode destination;
-    private FlightSearchPeriod flightSearchPeriod;
+    private Period period;
     private PassengersNumber passengers;
 
     @Builder
     // Main constructor, All args
-    public FlightSearch(IATACode origin, IATACode destination, FlightSearchPeriod flightSearchPeriod,
+    public FlightSearch(IATACode origin, IATACode destination, Period period,
                         PassengersNumber passengers) {
         ArgumentAssertions.assertNonNull(ORIGIN, origin);
         ArgumentAssertions.assertNonNull(DESTINATION, destination);
@@ -40,13 +35,13 @@ public class FlightSearch {
         id = UUID.randomUUID();
         this.origin = ArgumentAssertions.assertNonEquals(DESTINATION, destination, ORIGIN, origin);
         this.destination = destination;
-        this.flightSearchPeriod = flightSearchPeriod == null ? FlightSearchPeriod.of(LocalDate.now()) : flightSearchPeriod;
+        this.period = period == null ? Period.of(LocalDate.now()) : period;
         this.passengers = passengers == null ? PassengersNumber.min() : passengers;
     }
 
     @Builder(builderMethodName = "plainBuilder")
     public FlightSearch(String origin, String destination, LocalDate from, LocalDate to, Integer passengers) {
-        this(new IATACode(origin), new IATACode(destination), FlightSearchPeriod.of(from, to), new PassengersNumber(passengers));
+        this(new IATACode(origin), new IATACode(destination), Period.of(from, to), new PassengersNumber(passengers));
     }
 
 }

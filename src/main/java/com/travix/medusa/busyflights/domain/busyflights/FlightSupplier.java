@@ -1,4 +1,5 @@
 package com.travix.medusa.busyflights.domain.busyflights;
 
-public class FlightSupplier {
+public enum FlightSupplier {
+    CRAZY_AIR, THOUGH_JET
 }

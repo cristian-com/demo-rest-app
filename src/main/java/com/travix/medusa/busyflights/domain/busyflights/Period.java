@@ -11,18 +11,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-/**
- * There might be other flows are not being considered here that could improve performance.
- * <p>
- * e.g: if departureTime and returnTime are too close (simple case would be both being the same day)
- * we could simply return empty results as we know there will be not available options
- * <p>
- * Of course this is not a real responsibility for this class, and in a real scenario we would like to make the user aware of this instead
- */
 @Getter
 @ToString
 @EqualsAndHashCode
-public class FlightSearchPeriod implements ValueObject {
+public class Period implements ValueObject {
 
     @VisibleForTesting
     protected static final String DEPARTURE_TIME = "departure time";
@@ -33,7 +25,7 @@ public class FlightSearchPeriod implements ValueObject {
     private final LocalDateTime departureTime;
     private final LocalDateTime returnTime;
 
-    public FlightSearchPeriod(LocalDateTime departureTime, LocalDateTime returnTime) {
+    public Period(LocalDateTime departureTime, LocalDateTime returnTime) {
         this.departureTime = ArgumentAssertions.assertNonNull(DEPARTURE_TIME, departureTime);
 
         if (returnTime == null) {
@@ -42,17 +34,17 @@ public class FlightSearchPeriod implements ValueObject {
             this.returnTime = ArgumentAssertions.assertInTheFuture(DEPARTURE_TIME, departureTime, RETURN_TIME, returnTime);
         }
     }
-    public static FlightSearchPeriod of(LocalDate departureDate) {
+    public static Period of(LocalDate departureDate) {
         return of(departureDate, null);
     }
 
-    public static FlightSearchPeriod of(LocalDate departureDate, LocalDate returnDate) {
+    public static Period of(LocalDate departureDate, LocalDate returnDate) {
         ArgumentAssertions.assertNonNull(DEPARTURE_DATE, departureDate);
 
         LocalDateTime from = departureDate.atStartOfDay();
         LocalDateTime to = returnDate == null ? null : LocalDateTime.of(returnDate, LocalTime.MAX);
 
-        return new FlightSearchPeriod(from, to);
+        return new Period(from, to);
     }
 
 }

@@ -13,13 +13,12 @@ import static com.travix.medusa.buildingblocks.ArgumentAssertions.MUST_BE_DIFFER
 import static com.travix.medusa.buildingblocks.ArgumentAssertions.NULL_MESSAGE
 import static com.travix.medusa.buildingblocks.ArgumentAssertions.STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS
 import static com.travix.medusa.buildingblocks.ArgumentAssertions.getErrorMessage
-import static com.travix.medusa.busyflights.domain.busyflights.FlightSearch.PERIOD
-import static com.travix.medusa.busyflights.domain.busyflights.FlightSearchPeriod.DEPARTURE_DATE
-import static com.travix.medusa.busyflights.domain.busyflights.FlightSearchPeriod.DEPARTURE_TIME
-import static com.travix.medusa.busyflights.domain.busyflights.FlightSearchPeriod.RETURN_TIME
-import static com.travix.medusa.busyflights.domain.busyflights.IATACode.CODE
 import static com.travix.medusa.busyflights.domain.busyflights.FlightSearch.DESTINATION
 import static com.travix.medusa.busyflights.domain.busyflights.FlightSearch.ORIGIN
+import static Period.DEPARTURE_DATE
+import static Period.DEPARTURE_TIME
+import static Period.RETURN_TIME
+import static com.travix.medusa.busyflights.domain.busyflights.IATACode.CODE
 import static com.travix.medusa.busyflights.domain.busyflights.PassengersNumber.NUMBER
 
 /**
@@ -31,7 +30,7 @@ class FlightSearchSpec extends Specification {
 
     def "Destination can not be null" () {
         when:
-        new FlightSearch(new IATACode('ABC'),  null, FlightSearchPeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
+        new FlightSearch(new IATACode('ABC'),  null, Period.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -40,7 +39,7 @@ class FlightSearchSpec extends Specification {
 
     def "Origin can not be null" () {
         when:
-        new FlightSearch(null,  new IATACode('ABC'), FlightSearchPeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
+        new FlightSearch(null,  new IATACode('ABC'), Period.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -54,7 +53,7 @@ class FlightSearchSpec extends Specification {
         def destination = new IATACode('ABC')
 
         when:
-        new FlightSearch(origin, destination, FlightSearchPeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
+        new FlightSearch(origin, destination, Period.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -102,7 +101,7 @@ class FlightSearchSpec extends Specification {
 
     def "Search period must have a departure time"() {
         when:
-        new FlightSearchPeriod(null, LocalDateTime.now())
+        new Period(null, LocalDateTime.now())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -111,7 +110,7 @@ class FlightSearchSpec extends Specification {
 
     def "Search period doesn't need a return"() {
         when:
-        new FlightSearchPeriod(LocalDateTime.now(), null)
+        new Period(LocalDateTime.now(), null)
 
         then:
         noExceptionThrown()
@@ -119,7 +118,7 @@ class FlightSearchSpec extends Specification {
 
     def "Return time should be in the future when comparing with departure time"() {
         when:
-        new FlightSearchPeriod(from, to)
+        new Period(from, to)
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -133,7 +132,7 @@ class FlightSearchSpec extends Specification {
 
     def "Return times in the future are valid"() {
         when:
-        new FlightSearchPeriod(from, to)
+        new Period(from, to)
 
         then:
         noExceptionThrown()
@@ -146,7 +145,7 @@ class FlightSearchSpec extends Specification {
 
     def "Creating periods from dates must have a departure date"() {
         when:
-        FlightSearchPeriod.of(null, LocalDate.now())
+        Period.of(null, LocalDate.now())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -158,7 +157,7 @@ class FlightSearchSpec extends Specification {
         def response
 
         when:
-        response = FlightSearchPeriod.of(from, to)
+        response = Period.of(from, to)
 
         then:
         response.departureTime == from.atStartOfDay()
