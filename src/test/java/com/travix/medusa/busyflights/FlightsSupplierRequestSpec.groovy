@@ -1,6 +1,7 @@
 package com.travix.medusa.busyflights
 
 import com.travix.medusa.busyflights.domain.busyflights.FlightSearch
+import com.travix.medusa.busyflights.domain.busyflights.IATACode
 import com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair.CrazyAirFlightSupplierGateway
 import spock.lang.Specification
 
@@ -31,7 +32,7 @@ import spock.lang.Specification
  | passengerCount | Number of passengers |
 
  *
- **ToughJet API**
+ ** ToughJet API**
 
  | Name | Description |
  | ------ | ------ |
@@ -44,7 +45,7 @@ import spock.lang.Specification
  */
 class FlightsSupplierRequestSpec extends Specification {
 
-    def "CrazyAir gateway should support domain model" () {
+    def "CrazyAir gateway should support domain model"() {
         given:
         def target = new CrazyAirFlightSupplierGateway()
         def response
@@ -57,11 +58,10 @@ class FlightsSupplierRequestSpec extends Specification {
     }
 
     private static FlightSearch getValidSearch() {
-        new FlightSearch().with {
-
-
-            return it
-        }
+        FlightSearch.builder()
+                .origin(new IATACode('DCB'))
+                .destination(new IATACode('ABC'))
+                .build()
     }
 
 }

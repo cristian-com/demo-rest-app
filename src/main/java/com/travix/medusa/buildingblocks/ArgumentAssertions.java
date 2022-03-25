@@ -4,17 +4,19 @@ import java.time.LocalDateTime;
 
 /**
  * Util class for argument assertions targeting domain validations only and for testing use
- *
+ * <p>
  * All methods return the passed argument or the last (considered the target)
  */
 public final class ArgumentAssertions {
 
-    private ArgumentAssertions() {}
+    private ArgumentAssertions() {
+    }
 
     public static String NULL_MESSAGE = "%s must not be null.";
     public static String LAST_DATE_CAN_NOT_BE_IN_THE_PAST = "%s must be later than %s.";
-    public static String STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS = "%s must has at least %b characters, and not contain emtpy spaces.";
-    public static String MUST_BE_BETWEEN = "%b must be between %b and %b.";
+    public static String STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS = "%s must has at least %d characters, and not contain emtpy spaces.";
+    public static String MUST_BE_BETWEEN = "%s must be between %s and %s.";
+    public static String MUST_BE_DIFFERENT = "%s must be different to %s.";
 
     public static <T> T assertNonNull(String name, T target) {
         if (target == null) {
@@ -50,6 +52,18 @@ public final class ArgumentAssertions {
 
     public static int assertMajorThanZeroAndUpTo(String name, int max, int target) {
         return assertBetween(name, 1, max, target);
+    }
+
+    public static <T> T assertNonEquals(String baseName, T base, String targetName, T target) {
+        if (base == null && target == null) {
+            return null;
+        }
+
+        if (base != null && !base.equals(target)) {
+            return target;
+        }
+
+        throw new IllegalArgumentException(getErrorMessage(MUST_BE_DIFFERENT, targetName, baseName));
     }
 
     @VisibleForTesting

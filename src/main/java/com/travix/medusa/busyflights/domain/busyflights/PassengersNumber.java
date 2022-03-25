@@ -15,12 +15,12 @@ public class PassengersNumber implements ValueObject {
     private static final PassengersNumber MAX = new PassengersNumber(MAX_NUMBER);
     private static final PassengersNumber MIN = new PassengersNumber(1);
 
-    private static final String NUMBER = "Passenger number";
+    protected static final String NUMBER = "Passenger number";
 
     private final int number;
 
     public PassengersNumber(int number) {
-        this.number = ArgumentAssertions.assertMajorThanZeroAndUpTo(NUMBER, 4, number);
+        this.number = ArgumentAssertions.assertMajorThanZeroAndUpTo(NUMBER, MAX_NUMBER, number);
     }
 
     public static PassengersNumber min() {
