@@ -7,5 +7,5 @@ import java.math.BigDecimal;
 public record Flight(String airline, FlightSupplier supplier,
                      BigDecimal fare, IATACode departure,
                      IATACode destination,
-                     Period period) implements ValueObject {
+                     TimePeriod timePeriod) implements ValueObject {
 }

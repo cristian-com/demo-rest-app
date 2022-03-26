@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class Period implements ValueObject {
+public class TimePeriod implements ValueObject {
 
     @VisibleForTesting
     protected static final String DEPARTURE_TIME = "departure time";
@@ -25,7 +25,7 @@ public class Period implements ValueObject {
     private final LocalDateTime departureTime;
     private final LocalDateTime returnTime;
 
-    public Period(LocalDateTime departureTime, LocalDateTime returnTime) {
+    public TimePeriod(LocalDateTime departureTime, LocalDateTime returnTime) {
         this.departureTime = ArgumentAssertions.assertNonNull(DEPARTURE_TIME, departureTime);
 
         if (returnTime == null) {
@@ -35,17 +35,17 @@ public class Period implements ValueObject {
         }
     }
 
-    public static Period of(LocalDate departureDate) {
+    public static TimePeriod of(LocalDate departureDate) {
         return of(departureDate, null);
     }
 
-    public static Period of(LocalDate departureDate, LocalDate returnDate) {
+    public static TimePeriod of(LocalDate departureDate, LocalDate returnDate) {
         ArgumentAssertions.assertNonNull(DEPARTURE_DATE, departureDate);
 
         LocalDateTime from = departureDate.atStartOfDay();
         LocalDateTime to = returnDate == null ? null : LocalDateTime.of(returnDate, LocalTime.MAX);
 
-        return new Period(from, to);
+        return new TimePeriod(from, to);
     }
 
 }

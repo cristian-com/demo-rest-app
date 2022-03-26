@@ -5,7 +5,7 @@ import com.travix.medusa.busyflights.domain.busyflights.Flight
 import com.travix.medusa.busyflights.domain.busyflights.FlightSearch
 import com.travix.medusa.busyflights.domain.busyflights.FlightSupplier
 import com.travix.medusa.busyflights.domain.busyflights.IATACode
-import com.travix.medusa.busyflights.domain.busyflights.Period
+import com.travix.medusa.busyflights.domain.busyflights.TimePeriod
 import com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair.CrazyAirApi
 import com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair.CrazyAirApi.CrazyAirResponse
 import com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair.CrazyAirFlightSupplier
@@ -83,7 +83,7 @@ class FlightsSupplierRequestSpec extends Specification {
                 BigDecimal.valueOf(crazyAirResponse.price()),
                 new IATACode(crazyAirResponse.departureAirportCode()),
                 new IATACode(crazyAirResponse.destinationAirportCode()),
-                new Period(Dates.isoLocalDateTime(crazyAirResponse.departureDate()),
+                new TimePeriod(Dates.isoLocalDateTime(crazyAirResponse.departureDate()),
                         Dates.isoLocalDateTime(crazyAirResponse.arrivalDate())))
     }
 
@@ -95,11 +95,7 @@ class FlightsSupplierRequestSpec extends Specification {
                 'LHR',
                 'ABC',
                 '2011-12-03T10:15:30',
-                '2011-12-03T10:15:30')
-    }
-
-    String dString(String name) {
-        return "Dummy" + name
+                '2011-12-05T10:15:30')
     }
 
     private static FlightSearch createFlightSearch() {

@@ -15,9 +15,9 @@ import static com.travix.medusa.buildingblocks.ArgumentAssertions.STRING_MUST_HA
 import static com.travix.medusa.buildingblocks.ArgumentAssertions.getErrorMessage
 import static com.travix.medusa.busyflights.domain.busyflights.FlightSearch.DESTINATION
 import static com.travix.medusa.busyflights.domain.busyflights.FlightSearch.ORIGIN
-import static Period.DEPARTURE_DATE
-import static Period.DEPARTURE_TIME
-import static Period.RETURN_TIME
+import static TimePeriod.DEPARTURE_DATE
+import static TimePeriod.DEPARTURE_TIME
+import static TimePeriod.RETURN_TIME
 import static com.travix.medusa.busyflights.domain.busyflights.IATACode.CODE
 import static com.travix.medusa.busyflights.domain.busyflights.PassengersNumber.NUMBER
 
@@ -30,7 +30,7 @@ class FlightSearchSpec extends Specification {
 
     def "Destination can not be null" () {
         when:
-        new FlightSearch(new IATACode('ABC'),  null, Period.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
+        new FlightSearch(new IATACode('ABC'),  null, TimePeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -39,7 +39,7 @@ class FlightSearchSpec extends Specification {
 
     def "Origin can not be null" () {
         when:
-        new FlightSearch(null,  new IATACode('ABC'), Period.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
+        new FlightSearch(null,  new IATACode('ABC'), TimePeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -53,7 +53,7 @@ class FlightSearchSpec extends Specification {
         def destination = new IATACode('ABC')
 
         when:
-        new FlightSearch(origin, destination, Period.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
+        new FlightSearch(origin, destination, TimePeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -101,7 +101,7 @@ class FlightSearchSpec extends Specification {
 
     def "Search period must have a departure time"() {
         when:
-        new Period(null, LocalDateTime.now())
+        new TimePeriod(null, LocalDateTime.now())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -110,7 +110,7 @@ class FlightSearchSpec extends Specification {
 
     def "Search period doesn't need a return"() {
         when:
-        new Period(LocalDateTime.now(), null)
+        new TimePeriod(LocalDateTime.now(), null)
 
         then:
         noExceptionThrown()
@@ -118,7 +118,7 @@ class FlightSearchSpec extends Specification {
 
     def "Return time should be in the future when comparing with departure time"() {
         when:
-        new Period(from, to)
+        new TimePeriod(from, to)
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -132,7 +132,7 @@ class FlightSearchSpec extends Specification {
 
     def "Return times in the future are valid"() {
         when:
-        new Period(from, to)
+        new TimePeriod(from, to)
 
         then:
         noExceptionThrown()
@@ -145,7 +145,7 @@ class FlightSearchSpec extends Specification {
 
     def "Creating periods from dates must have a departure date"() {
         when:
-        Period.of(null, LocalDate.now())
+        TimePeriod.of(null, LocalDate.now())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -157,7 +157,7 @@ class FlightSearchSpec extends Specification {
         def response
 
         when:
-        response = Period.of(from, to)
+        response = TimePeriod.of(from, to)
 
         then:
         response.departureTime == from.atStartOfDay()

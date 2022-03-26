@@ -22,12 +22,12 @@ public class FlightSearch {
     private final Serializable id;
     private IATACode origin;
     private IATACode destination;
-    private Period period;
+    private TimePeriod timePeriod;
     private PassengersNumber passengers;
 
     @Builder
     // Main constructor, All args
-    public FlightSearch(IATACode origin, IATACode destination, Period period,
+    public FlightSearch(IATACode origin, IATACode destination, TimePeriod timePeriod,
                         PassengersNumber passengers) {
         ArgumentAssertions.assertNonNull(ORIGIN, origin);
         ArgumentAssertions.assertNonNull(DESTINATION, destination);
@@ -35,13 +35,13 @@ public class FlightSearch {
         id = UUID.randomUUID();
         this.origin = ArgumentAssertions.assertNonEquals(DESTINATION, destination, ORIGIN, origin);
         this.destination = destination;
-        this.period = period == null ? Period.of(LocalDate.now()) : period;
+        this.timePeriod = timePeriod == null ? TimePeriod.of(LocalDate.now()) : timePeriod;
         this.passengers = passengers == null ? PassengersNumber.min() : passengers;
     }
 
     @Builder(builderMethodName = "plainBuilder")
     public FlightSearch(String origin, String destination, LocalDate from, LocalDate to, Integer passengers) {
-        this(new IATACode(origin), new IATACode(destination), Period.of(from, to), new PassengersNumber(passengers));
+        this(new IATACode(origin), new IATACode(destination), TimePeriod.of(from, to), new PassengersNumber(passengers));
     }
 
 }
