@@ -1,4 +1,4 @@
-package com.travix.medusa.buildingblocks;
+package com.travix.medusa.busyflights.buildingblocks;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

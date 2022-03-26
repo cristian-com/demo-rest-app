@@ -1,6 +1,6 @@
 package com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair;
 
-import com.travix.medusa.buildingblocks.ExchangeTrait;
+import com.travix.medusa.busyflights.buildingblocks.ExchangeTrait;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

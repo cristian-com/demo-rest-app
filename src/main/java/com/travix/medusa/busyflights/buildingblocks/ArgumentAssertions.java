@@ -1,4 +1,4 @@
-package com.travix.medusa.buildingblocks;
+package com.travix.medusa.busyflights.buildingblocks;
 
 import java.time.LocalDateTime;
 

@@ -1,11 +1,11 @@
 package com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair;
 
-import com.travix.medusa.buildingblocks.Adapter;
-import com.travix.medusa.buildingblocks.Dates;
+import com.travix.medusa.busyflights.buildingblocks.Adapter;
+import com.travix.medusa.busyflights.buildingblocks.Dates;
 import com.travix.medusa.busyflights.domain.busyflights.Flight;
 import com.travix.medusa.busyflights.domain.busyflights.FlightSearch;
 import com.travix.medusa.busyflights.domain.busyflights.FlightSupplier;
-import com.travix.medusa.busyflights.domain.busyflights.FlightSupplierGateway;
+import com.travix.medusa.busyflights.domain.busyflights.services.FlightSupplierGateway;
 import com.travix.medusa.busyflights.domain.busyflights.IATACode;
 import com.travix.medusa.busyflights.domain.busyflights.TimePeriod;
 import jakarta.validation.constraints.NotNull;

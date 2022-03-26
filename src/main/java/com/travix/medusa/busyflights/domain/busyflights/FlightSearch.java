@@ -1,6 +1,6 @@
 package com.travix.medusa.busyflights.domain.busyflights;
 
-import com.travix.medusa.buildingblocks.ArgumentAssertions;
+import com.travix.medusa.busyflights.buildingblocks.ArgumentAssertions;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

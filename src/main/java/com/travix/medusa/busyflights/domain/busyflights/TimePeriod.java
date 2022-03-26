@@ -1,8 +1,8 @@
 package com.travix.medusa.busyflights.domain.busyflights;
 
-import com.travix.medusa.buildingblocks.ArgumentAssertions;
-import com.travix.medusa.buildingblocks.ValueObject;
-import com.travix.medusa.buildingblocks.VisibleForTesting;
+import com.travix.medusa.busyflights.buildingblocks.ArgumentAssertions;
+import com.travix.medusa.busyflights.buildingblocks.ValueObject;
+import com.travix.medusa.busyflights.buildingblocks.VisibleForTesting;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
