@@ -7,7 +7,8 @@ import java.util.Objects;
 
 public final class Dates {
 
-    private Dates() {}
+    private Dates() {
+    }
 
     public static LocalDateTime isoLocalDateTime(String value) {
         if (Objects.isNull(value)) {
@@ -21,7 +22,6 @@ public final class Dates {
         if (Objects.isNull(value)) {
             return null;
         }
-
         return LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE);
     }
 

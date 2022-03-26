@@ -34,6 +34,7 @@ public class Period implements ValueObject {
             this.returnTime = ArgumentAssertions.assertInTheFuture(DEPARTURE_TIME, departureTime, RETURN_TIME, returnTime);
         }
     }
+
     public static Period of(LocalDate departureDate) {
         return of(departureDate, null);
     }

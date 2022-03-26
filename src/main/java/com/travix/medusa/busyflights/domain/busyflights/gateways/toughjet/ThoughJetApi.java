@@ -1,6 +1,6 @@
 package com.travix.medusa.busyflights.domain.busyflights.gateways.toughjet;
 
-public class ThoughJetContract {
+public class ThoughJetApi {
 
     public record ToughJetRequest(String from, String to, String outboundDate,
                                   String inboundDate, int numberOfAdults) {

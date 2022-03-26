@@ -1,9 +1,17 @@
 package com.travix.medusa.busyflights
 
+import com.travix.medusa.buildingblocks.Dates
+import com.travix.medusa.busyflights.domain.busyflights.Flight
 import com.travix.medusa.busyflights.domain.busyflights.FlightSearch
+import com.travix.medusa.busyflights.domain.busyflights.FlightSupplier
 import com.travix.medusa.busyflights.domain.busyflights.IATACode
-import com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair.CrazyAirFlightSupplierGateway
+import com.travix.medusa.busyflights.domain.busyflights.Period
+import com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair.CrazyAirApi
+import com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair.CrazyAirApi.CrazyAirResponse
+import com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair.CrazyAirFlightSupplier
 import spock.lang.Specification
+
+import java.time.LocalDate
 
 /**
  * Public API
@@ -45,23 +53,61 @@ import spock.lang.Specification
  */
 class FlightsSupplierRequestSpec extends Specification {
 
-    def "CrazyAir gateway should support domain model"() {
+    CrazyAirFlightSupplier target
+
+    def setup() {
+        def GET = Stub(CrazyAirApi.GET) {
+            exchange(*_) >> [crazyAirResponse()]
+        }
+
+        target = new CrazyAirFlightSupplier(Stub(CrazyAirApi) {
+            get() >> GET
+        })
+    }
+
+    def "CrazyAir flights query"() {
         given:
-        def target = new CrazyAirFlightSupplierGateway()
         def response
 
         when:
-        response = target.query(getValidSearch())
+        response = target.query(createFlightSearch())
+        if (response instanceof List) response = response[0]
 
         then:
-        assert response
+        assert response == createResponse(crazyAirResponse())
     }
 
-    private static FlightSearch getValidSearch() {
-        FlightSearch.builder()
-                .origin(new IATACode('DCB'))
-                .destination(new IATACode('ABC'))
-                .build()
+    Flight createResponse(CrazyAirResponse crazyAirResponse) {
+        new Flight(crazyAirResponse.airline(),
+                FlightSupplier.CRAZY_AIR,
+                BigDecimal.valueOf(crazyAirResponse.price()),
+                new IATACode(crazyAirResponse.departureAirportCode()),
+                new IATACode(crazyAirResponse.destinationAirportCode()),
+                new Period(Dates.isoLocalDateTime(crazyAirResponse.departureDate()),
+                        Dates.isoLocalDateTime(crazyAirResponse.arrivalDate())))
+    }
+
+    CrazyAirResponse crazyAirResponse() {
+        new CrazyAirResponse(
+                "AIRLINE",
+                33.0,
+                'E',
+                'LHR',
+                'ABC',
+                '2011-12-03T10:15:30',
+                '2011-12-03T10:15:30')
+    }
+
+    String dString(String name) {
+        return "Dummy" + name
+    }
+
+    private static FlightSearch createFlightSearch() {
+        new FlightSearch('ABC',
+                'BCD',
+                LocalDate.now(),
+                LocalDate.now().plusDays(10),
+                2)
     }
 
 }
