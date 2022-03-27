@@ -1,5 +1,7 @@
 package com.travix.medusa.busyflights.domain.busyflights.web;
 
+import java.time.LocalDate;
+
 public final class FlightsContract {
 
     private FlightsContract() {
@@ -7,8 +9,8 @@ public final class FlightsContract {
 
     public record Request(String origin,
                           String destination,
-                          String departureDate,
-                          String returnDate,
+                          LocalDate departureDate,
+                          LocalDate returnDate,
                           int numberOfPassengers) {
     }
 

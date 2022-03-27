@@ -30,7 +30,7 @@ class FlightSearchSpec extends Specification {
 
     def "Destination can not be null" () {
         when:
-        new FlightSearch(new IATACode('ABC'),  null, TimePeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
+        new FlightSearch(UUID.randomUUID(), new IATACode('ABC'),  null, TimePeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -39,7 +39,7 @@ class FlightSearchSpec extends Specification {
 
     def "Origin can not be null" () {
         when:
-        new FlightSearch(null,  new IATACode('ABC'), TimePeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
+        new FlightSearch(UUID.randomUUID(), null,  new IATACode('ABC'), TimePeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
 
         then:
         def e = thrown(IllegalArgumentException)
@@ -53,7 +53,7 @@ class FlightSearchSpec extends Specification {
         def destination = new IATACode('ABC')
 
         when:
-        new FlightSearch(origin, destination, TimePeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
+        new FlightSearch(UUID.randomUUID(), origin, destination, TimePeriod.of(LocalDate.now(), LocalDate.now()), PassengersNumber.min())
 
         then:
         def e = thrown(IllegalArgumentException)

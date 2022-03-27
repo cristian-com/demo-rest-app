@@ -99,7 +99,8 @@ class FlightsSupplierRequestSpec extends Specification {
     }
 
     private static FlightSearch createFlightSearch() {
-        new FlightSearch('ABC',
+        new FlightSearch(UUID.randomUUID(),
+                'ABC',
                 'BCD',
                 LocalDate.now(),
                 LocalDate.now().plusDays(10),

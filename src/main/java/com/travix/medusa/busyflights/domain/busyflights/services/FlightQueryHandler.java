@@ -3,10 +3,13 @@ package com.travix.medusa.busyflights.domain.busyflights.services;
 import com.travix.medusa.busyflights.buildingblocks.Query;
 import com.travix.medusa.busyflights.buildingblocks.QueryHandler;
 import com.travix.medusa.busyflights.domain.busyflights.Flight;
+import com.travix.medusa.busyflights.domain.busyflights.FlightSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -17,14 +20,30 @@ public class FlightQueryHandler implements QueryHandler<FlightQueryHandler.Fligh
 
     @Override
     public List<Flight> handle(FlightQuery query) {
-        return null;
+        final FlightSearch flightSearch = FlightSearch.builder()
+                .id(query.id)
+                .origin(query.origin)
+                .destination(query.destination)
+                .departureDate(query.departureDate)
+                .returnDate(query.returnDate)
+                .passengers(query.numberOfPassenger)
+                .build();
+
+        List<Flight> flights = flightSuppliers.parallelStream()
+                .map(supplier -> supplier.query(flightSearch))
+                .flatMap(List::stream)
+                .toList();
+
+        return flights.stream()
+                .sorted(Comparator.comparing(Flight::fare))
+                .toList();
     }
 
     public record FlightQuery(Serializable id,
                               String origin,
                               String destination,
-                              String departureDate,
-                              String returnDate,
+                              LocalDate departureDate,
+                              LocalDate returnDate,
                               int numberOfPassenger) implements Query {
     }
 

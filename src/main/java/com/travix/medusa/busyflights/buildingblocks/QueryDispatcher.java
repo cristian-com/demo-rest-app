@@ -1,5 +1,6 @@
 package com.travix.medusa.busyflights.buildingblocks;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class QueryDispatcher {
 
-    public <Q extends Query, R> R dispatch(QueryHandler<Q, R> handler, Q query) {
+    public <Q extends Query, R> R dispatch(@NotNull QueryHandler<Q, R> handler, @NotNull Q query) {
         try {
             return handler.handle(query);
         } catch (Exception e) {
