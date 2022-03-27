@@ -27,8 +27,4 @@ public class PassengersNumber implements ValueObject {
         return MIN;
     }
 
-    public static PassengersNumber max() {
-        return MAX;
-    }
-
 }

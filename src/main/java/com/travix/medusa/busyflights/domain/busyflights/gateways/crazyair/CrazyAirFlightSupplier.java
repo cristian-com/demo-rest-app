@@ -8,9 +8,9 @@ import com.travix.medusa.busyflights.domain.busyflights.FlightSupplier;
 import com.travix.medusa.busyflights.domain.busyflights.services.FlightSupplierGateway;
 import com.travix.medusa.busyflights.domain.busyflights.IATACode;
 import com.travix.medusa.busyflights.domain.busyflights.TimePeriod;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;

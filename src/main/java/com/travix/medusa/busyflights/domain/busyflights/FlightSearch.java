@@ -32,6 +32,7 @@ public class FlightSearch {
         this.id = ArgumentAssertions.assertNonNull("id", id);
         this.origin = ArgumentAssertions.assertNonEquals(DESTINATION, destination, ORIGIN, origin);
         this.destination = destination;
+        // Time period starts from now() and not end time by default
         this.timePeriod = timePeriod == null ? TimePeriod.of(LocalDate.now()) : timePeriod;
         this.passengers = passengers == null ? PassengersNumber.min() : passengers;
     }

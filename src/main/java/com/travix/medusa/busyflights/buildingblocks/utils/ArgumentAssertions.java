@@ -1,6 +1,7 @@
 package com.travix.medusa.busyflights.buildingblocks.utils;
 
 import com.travix.medusa.busyflights.buildingblocks.VisibleForTesting;
+import com.travix.medusa.busyflights.buildingblocks.exceptios.ArgumentNotValidException;
 
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public final class ArgumentAssertions {
 
     public static <T> T assertNonNull(String name, T target) {
         if (target == null) {
-            throw new IllegalArgumentException(getErrorMessage(NULL_MESSAGE, name));
+            throw new ArgumentNotValidException(getErrorMessage(NULL_MESSAGE, name));
         }
         return target;
     }
@@ -33,7 +34,7 @@ public final class ArgumentAssertions {
             return target;
         }
 
-        throw new IllegalArgumentException(getErrorMessage(LAST_DATE_CAN_NOT_BE_IN_THE_PAST, targetName, initialName));
+        throw new ArgumentNotValidException(getErrorMessage(LAST_DATE_CAN_NOT_BE_IN_THE_PAST, targetName, initialName));
     }
 
     public static String assertNonEmptyLength(String name, int length, String target) {
@@ -41,7 +42,7 @@ public final class ArgumentAssertions {
             return target;
         }
 
-        throw new IllegalArgumentException(getErrorMessage(STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS, name, length));
+        throw new ArgumentNotValidException(getErrorMessage(STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS, name, length));
     }
 
     public static int assertBetween(String name, int min, int max, int target) {
@@ -49,7 +50,7 @@ public final class ArgumentAssertions {
             return target;
         }
 
-        throw new IllegalArgumentException(getErrorMessage(MUST_BE_BETWEEN, name, min, max));
+        throw new ArgumentNotValidException(getErrorMessage(MUST_BE_BETWEEN, name, min, max));
     }
 
     public static int assertMajorThanZeroAndUpTo(String name, int max, int target) {
@@ -65,7 +66,7 @@ public final class ArgumentAssertions {
             return target;
         }
 
-        throw new IllegalArgumentException(getErrorMessage(MUST_BE_DIFFERENT, targetName, baseName));
+        throw new ArgumentNotValidException(getErrorMessage(MUST_BE_DIFFERENT, targetName, baseName));
     }
 
     @VisibleForTesting
