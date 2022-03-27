@@ -51,7 +51,7 @@ public class FlightSearch {
                 new PassengersNumber(passengers));
     }
 
-    private void setResults(List<Flight> flights) {
+    public void setResults(List<Flight> flights) {
         var executionTime = Instant.now();
 
         if (CollectionUtils.isEmpty(flights)) {

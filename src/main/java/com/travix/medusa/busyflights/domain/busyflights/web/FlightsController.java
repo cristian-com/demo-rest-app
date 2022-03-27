@@ -2,6 +2,7 @@ package com.travix.medusa.busyflights.domain.busyflights.web;
 
 import com.travix.medusa.busyflights.buildingblocks.queries.QueryDispatcher;
 import com.travix.medusa.busyflights.domain.busyflights.Flight;
+import com.travix.medusa.busyflights.domain.busyflights.FlightSearchResult;
 import com.travix.medusa.busyflights.domain.busyflights.services.FlightQueryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -35,7 +36,9 @@ public class FlightsController {
                 request.numberOfPassengers()
         );
 
-        return ResponseEntity.ok(dispatcher.dispatch(flightQueryHandler, query));
+        FlightSearchResult result = dispatcher.dispatch(flightQueryHandler, query);
+
+        return ResponseEntity.ok(null);
     }
 
 }
