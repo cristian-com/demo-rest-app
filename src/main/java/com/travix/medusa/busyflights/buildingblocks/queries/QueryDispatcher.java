@@ -5,6 +5,10 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * This is as simple as it can be, but ideally this object should enable to tackle cross-cutting concerns
+ * retries, rate limiting, exception handling and so on
+ */
 @Slf4j
 @Service
 public class QueryDispatcher {

@@ -51,7 +51,7 @@ class FlightQueryHandlerSpec extends Specification {
                 Dates.isoLocalDate("2011-12-03"),
                 Dates.isoLocalDate("2011-12-03"),
                 3
-        ))
+        )).results
 
         then:
         verifyAll {

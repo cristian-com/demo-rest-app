@@ -6,6 +6,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 public final class FlightsRestContract {
 
@@ -16,9 +17,18 @@ public final class FlightsRestContract {
                           @NotNull @NotBlank String destination,
                           @NotNull @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate departureDate,
                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate returnDate,
-                          @NotNull @Min(1) Integer numberOfPassengers) {}
+                          @NotNull @Min(1) Integer numberOfPassengers) {
+    }
 
-    public record BusyFlightsResponse() {
+    public record Response(AirportOptions outwardOptions, AirportOptions returnOptions) { }
+
+    public record AirportOptions(String code, List<FlightOption> options) { }
+
+    public record FlightOption(String airline,
+                               String supplier,
+                               String fare,
+                               String departureTime,
+                               String returnTime) {
     }
 
 }

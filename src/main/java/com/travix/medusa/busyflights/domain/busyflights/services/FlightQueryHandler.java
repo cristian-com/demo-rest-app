@@ -4,7 +4,6 @@ import com.travix.medusa.busyflights.buildingblocks.queries.Query;
 import com.travix.medusa.busyflights.buildingblocks.queries.QueryHandler;
 import com.travix.medusa.busyflights.domain.busyflights.Flight;
 import com.travix.medusa.busyflights.domain.busyflights.FlightSearch;
-import com.travix.medusa.busyflights.domain.busyflights.FlightSearchResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +13,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FlightQueryHandler implements QueryHandler<FlightQueryHandler.FlightQuery, FlightSearchResult> {
+public class FlightQueryHandler implements QueryHandler<FlightQueryHandler.FlightQuery, FlightSearch> {
 
     private final List<FlightSupplierGateway> flightSuppliers;
 
     @Override
-    public FlightSearchResult handle(FlightQuery query) {
+    public FlightSearch handle(FlightQuery query) {
         final FlightSearch flightSearch = FlightSearch.builder()
                 .id(query.id)
                 .origin(query.origin)
@@ -36,7 +35,7 @@ public class FlightQueryHandler implements QueryHandler<FlightQueryHandler.Fligh
 
         flightSearch.setResults(flights);
 
-        return flightSearch.getResults();
+        return flightSearch;
     }
 
     public record FlightQuery(Serializable id,

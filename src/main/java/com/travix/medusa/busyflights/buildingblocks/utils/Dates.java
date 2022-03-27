@@ -23,12 +23,12 @@ public final class Dates {
         return value.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
-    public static String isoLocalDate(LocalDate value) {
+    public static String isoDateTime(LocalDateTime value) {
         if (Objects.isNull(value)) {
             return null;
         }
 
-        return value.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        return value.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
     public static LocalDateTime isoLocalDateTime(String value, DateTimeFormatter formatter)
