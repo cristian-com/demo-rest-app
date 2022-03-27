@@ -6,8 +6,8 @@ import com.travix.medusa.busyflights.domain.busyflights.FlightSearch
 import com.travix.medusa.busyflights.domain.busyflights.FlightSupplier
 import com.travix.medusa.busyflights.domain.busyflights.IATACode
 import com.travix.medusa.busyflights.domain.busyflights.TimePeriod
-import com.travix.medusa.busyflights.domain.busyflights.gateways.toughjet.ThoughJetApi
-import com.travix.medusa.busyflights.domain.busyflights.gateways.toughjet.ThoughJetApi.ToughJetResponse
+import com.travix.medusa.busyflights.domain.busyflights.gateways.toughjet.ToughJetApi
+import com.travix.medusa.busyflights.domain.busyflights.gateways.toughjet.ToughJetApi.ToughJetResponse
 import com.travix.medusa.busyflights.domain.busyflights.gateways.toughjet.ThoughJetFlightSupplier
 import spock.lang.Specification
 
@@ -62,11 +62,11 @@ class ThoughJetFlightsSupplierSpec extends Specification {
     ThoughJetFlightSupplier target
 
     def setup() {
-        def GET = Stub(ThoughJetApi.GET) {
+        def GET = Stub(ToughJetApi.GET) {
             exchange(*_) >> [thoughJetResponse()]
         }
 
-        target = new ThoughJetFlightSupplier(Stub(ThoughJetApi) {
+        target = new ThoughJetFlightSupplier(Stub(ToughJetApi) {
             get() >> GET
         })
     }
@@ -74,30 +74,40 @@ class ThoughJetFlightsSupplierSpec extends Specification {
     def "ThoughJet flights query"() {
         given:
         def response
+        def expected = createResponse(thoughJetResponse())
 
         when:
         response = target.query(createFlightSearch())
         if (response instanceof List) response = response[0]
 
         then:
-        assert response == createResponse(thoughJetResponse())
+        response.with { Flight flight ->
+            verifyAll {
+                flight.airline() == expected.airline()
+                flight.supplier() == expected.supplier()
+                flight.fare() == expected.fare()
+                flight.departure() == expected.departure()
+                flight.destination() == expected.destination()
+                flight.timePeriod() == expected.timePeriod()
+            }
+        }
     }
 
     Flight createResponse(ToughJetResponse thoughJetResponse) {
         new Flight(thoughJetResponse.carrier(),
                 FlightSupplier.THOUGH_JET,
-                BigDecimal.valueOf(100d),
+                BigDecimal.valueOf(109.00d),
                 new IATACode(thoughJetResponse.departureAirportName()),
                 new IATACode(thoughJetResponse.arrivalAirportName()),
                 new TimePeriod(
-                        Dates.isoLocalDateTime(thoughJetResponse.outboundDateTime(), DateTimeFormatter.ISO_DATE),
-                        Dates.isoLocalDateTime(thoughJetResponse.inboundDateTime(), DateTimeFormatter.ISO_DATE)))
+                        Dates.isoLocalDateTime(thoughJetResponse.outboundDateTime(), DateTimeFormatter.ISO_INSTANT),
+                        Dates.isoLocalDateTime(thoughJetResponse.inboundDateTime(), DateTimeFormatter.ISO_INSTANT)))
     }
 
     ToughJetResponse thoughJetResponse() {
         new ToughJetResponse(
                 'CARRIER',
-                100d,
+                110d,
                 10d,
                 10d,
                 'LHR',

@@ -4,7 +4,7 @@ import com.travix.medusa.busyflights.buildingblocks.ExchangeTrait;
 
 import java.util.List;
 
-public class ThoughJetApi {
+public class ToughJetApi {
 
     public record ToughJetRequest(String from, String to, String outboundDate,
                                   String inboundDate, int numberOfAdults) {
@@ -15,15 +15,15 @@ public class ThoughJetApi {
                                    String outboundDateTime, String inboundDateTime) {
     }
 
-    private final ThoughJetApi.GET get = new ThoughJetApi.GET();
+    private final ToughJetApi.GET get = new ToughJetApi.GET();
 
-    public ThoughJetApi.GET get() {
+    public ToughJetApi.GET get() {
         return get;
     }
 
-    public static class GET implements ExchangeTrait<List<ThoughJetApi.ToughJetResponse>, ThoughJetApi.ToughJetRequest> {
+    public static class GET implements ExchangeTrait<List<ToughJetApi.ToughJetResponse>, ToughJetApi.ToughJetRequest> {
         @Override
-        public List<ThoughJetApi.ToughJetResponse> exchange(ThoughJetApi.ToughJetRequest thoughJetRequest) {
+        public List<ToughJetApi.ToughJetResponse> exchange(ToughJetApi.ToughJetRequest thoughJetRequest) {
             return null;
         }
     }
