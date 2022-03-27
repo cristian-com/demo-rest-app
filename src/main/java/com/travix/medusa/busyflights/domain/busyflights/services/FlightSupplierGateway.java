@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface FlightSupplierGateway {
 
-    @NotNull List<Flight> query(FlightSearch flightSearch);
+    @NotNull List<Flight> query(@NotNull FlightSearch flightSearch);
 
 }

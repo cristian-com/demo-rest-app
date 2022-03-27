@@ -1,10 +1,13 @@
-package com.travix.medusa.busyflights.buildingblocks;
+package com.travix.medusa.busyflights.buildingblocks.utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+/**
+ * Null safe functions
+ */
 public final class Dates {
 
     private Dates() {
@@ -26,12 +29,16 @@ public final class Dates {
         return value.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
-    public static LocalDateTime isoLocalDateTime(String value) {
+    public static LocalDateTime isoLocalDateTime(String value, DateTimeFormatter formatter) {
         if (Objects.isNull(value)) {
             return null;
         }
 
-        return LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return LocalDateTime.parse(value, formatter);
+    }
+
+    public static LocalDateTime isoLocalDateTime(String value) {
+        return isoLocalDateTime(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 
     public static LocalDate isoLocalDate(String value) {

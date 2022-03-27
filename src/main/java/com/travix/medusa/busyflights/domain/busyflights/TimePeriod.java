@@ -1,6 +1,6 @@
 package com.travix.medusa.busyflights.domain.busyflights;
 
-import com.travix.medusa.busyflights.buildingblocks.ArgumentAssertions;
+import com.travix.medusa.busyflights.buildingblocks.utils.ArgumentAssertions;
 import com.travix.medusa.busyflights.buildingblocks.ValueObject;
 import com.travix.medusa.busyflights.buildingblocks.VisibleForTesting;
 import lombok.EqualsAndHashCode;

@@ -1,6 +1,6 @@
 package com.travix.medusa.busyflights.domain.busyflights.web;
 
-import com.travix.medusa.busyflights.buildingblocks.QueryDispatcher;
+import com.travix.medusa.busyflights.buildingblocks.queries.QueryDispatcher;
 import com.travix.medusa.busyflights.domain.busyflights.Flight;
 import com.travix.medusa.busyflights.domain.busyflights.services.FlightQueryHandler;
 import lombok.RequiredArgsConstructor;

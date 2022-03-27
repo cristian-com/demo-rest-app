@@ -1,4 +1,4 @@
-package com.travix.medusa.busyflights.buildingblocks;
+package com.travix.medusa.busyflights.buildingblocks.exceptios;
 
 public class ArgumentNotValidException extends IllegalArgumentException {
 

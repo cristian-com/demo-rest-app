@@ -1,7 +1,7 @@
 package com.travix.medusa.busyflights.domain.busyflights.gateways.crazyair;
 
 import com.travix.medusa.busyflights.buildingblocks.Adapter;
-import com.travix.medusa.busyflights.buildingblocks.Dates;
+import com.travix.medusa.busyflights.buildingblocks.utils.Dates;
 import com.travix.medusa.busyflights.domain.busyflights.Flight;
 import com.travix.medusa.busyflights.domain.busyflights.FlightSearch;
 import com.travix.medusa.busyflights.domain.busyflights.FlightSupplier;
@@ -18,11 +18,12 @@ import java.util.Objects;
 @Component
 public class CrazyAirFlightSupplier implements FlightSupplierGateway {
 
-    private final CrazyFlightGetFlightsResponseAdapter adapter = new CrazyFlightGetFlightsResponseAdapter();
+    private final CrazyFlightGetFlightsResponseAdapter adapter;
     private final CrazyAirApi crazyAirApi;
 
     public CrazyAirFlightSupplier(CrazyAirApi crazyAirApi) {
-        this.crazyAirApi = crazyAirApi;
+        this.crazyAirApi = Objects.requireNonNull(crazyAirApi);
+        this.adapter = new CrazyFlightGetFlightsResponseAdapter();
     }
 
     @Override

@@ -1,6 +1,6 @@
-package com.travix.medusa.busyflights
+package com.travix.medusa.busyflights.domain.busyflights.gateways
 
-import com.travix.medusa.busyflights.buildingblocks.Dates
+import com.travix.medusa.busyflights.buildingblocks.utils.Dates
 import com.travix.medusa.busyflights.domain.busyflights.Flight
 import com.travix.medusa.busyflights.domain.busyflights.FlightSearch
 import com.travix.medusa.busyflights.domain.busyflights.FlightSupplier
@@ -26,11 +26,13 @@ import java.time.LocalDate
  | numberOfPassengers | Maximum 4 passengers |
  *
  *
- * The problem: Support for fetching flights from multiple suppliers (at least CrazyAir and ToughJet)
+ * The problem: Support for fetching flights from multiple suppliers (CrazyAir)
  *
  * Samples:
  * **CrazyAir API**
- *
+
+ **Request**
+
  | Name | Description |
  | ------ | ------ |
  | origin | 3 letter IATA code(eg. LHR, AMS) |
@@ -39,19 +41,21 @@ import java.time.LocalDate
  | returnDate | ISO_LOCAL_DATE format |
  | passengerCount | Number of passengers |
 
- *
- ** ToughJet API**
+ **Response**
+
 
  | Name | Description |
  | ------ | ------ |
- | from | 3 letter IATA code(eg. LHR, AMS) |
- | to | 3 letter IATA code(eg. LHR, AMS) |
- | outboundDate |ISO_LOCAL_DATE format |
- | inboundDate | ISO_LOCAL_DATE format |
- | numberOfAdults | Number of passengers |
+ | airline | Name of the airline |
+ | price | Total price |
+ | cabinclass | E for Economy and B for Business |
+ | departureAirportCode | Eg: LHR |
+ | destinationAirportCode | Eg: LHR |
+ | departureDate | ISO_LOCAL_DATE_TIME format |
+ | arrivalDate | ISO_LOCAL_DATE_TIME format |
  *
  */
-class FlightsSupplierRequestSpec extends Specification {
+class CrazyAirFlightsSupplierSpec extends Specification {
 
     CrazyAirFlightSupplier target
 

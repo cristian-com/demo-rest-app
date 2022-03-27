@@ -1,4 +1,4 @@
-package com.travix.medusa.busyflights.buildingblocks;
+package com.travix.medusa.busyflights.buildingblocks.queries;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;

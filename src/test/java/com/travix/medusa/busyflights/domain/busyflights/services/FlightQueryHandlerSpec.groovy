@@ -1,6 +1,6 @@
 package com.travix.medusa.busyflights.domain.busyflights.services
 
-import com.travix.medusa.busyflights.buildingblocks.Dates
+import com.travix.medusa.busyflights.buildingblocks.utils.Dates
 import com.travix.medusa.busyflights.domain.busyflights.Flight
 import com.travix.medusa.busyflights.domain.busyflights.FlightSearch
 import com.travix.medusa.busyflights.domain.busyflights.FlightSupplier

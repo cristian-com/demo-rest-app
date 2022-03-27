@@ -1,4 +1,4 @@
-package com.travix.medusa.busyflights.buildingblocks;
+package com.travix.medusa.busyflights.buildingblocks.queries;
 
 import java.io.Serializable;
 

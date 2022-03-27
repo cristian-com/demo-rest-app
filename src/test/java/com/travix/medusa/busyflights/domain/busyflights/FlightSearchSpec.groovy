@@ -1,18 +1,18 @@
 package com.travix.medusa.busyflights.domain.busyflights
 
-import com.travix.medusa.busyflights.buildingblocks.Dates
+import com.travix.medusa.busyflights.buildingblocks.utils.Dates
 import spock.lang.Specification
 
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-import static com.travix.medusa.busyflights.buildingblocks.ArgumentAssertions.LAST_DATE_CAN_NOT_BE_IN_THE_PAST
-import static com.travix.medusa.busyflights.buildingblocks.ArgumentAssertions.MUST_BE_BETWEEN
-import static com.travix.medusa.busyflights.buildingblocks.ArgumentAssertions.MUST_BE_DIFFERENT
-import static com.travix.medusa.busyflights.buildingblocks.ArgumentAssertions.NULL_MESSAGE
-import static com.travix.medusa.busyflights.buildingblocks.ArgumentAssertions.STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS
-import static com.travix.medusa.busyflights.buildingblocks.ArgumentAssertions.getErrorMessage
+import static com.travix.medusa.busyflights.buildingblocks.utils.ArgumentAssertions.LAST_DATE_CAN_NOT_BE_IN_THE_PAST
+import static com.travix.medusa.busyflights.buildingblocks.utils.ArgumentAssertions.MUST_BE_BETWEEN
+import static com.travix.medusa.busyflights.buildingblocks.utils.ArgumentAssertions.MUST_BE_DIFFERENT
+import static com.travix.medusa.busyflights.buildingblocks.utils.ArgumentAssertions.NULL_MESSAGE
+import static com.travix.medusa.busyflights.buildingblocks.utils.ArgumentAssertions.STRING_MUST_HAVE_LENGTH_WITH_NON_EMPTY_CHARACTERS
+import static com.travix.medusa.busyflights.buildingblocks.utils.ArgumentAssertions.getErrorMessage
 import static com.travix.medusa.busyflights.domain.busyflights.FlightSearch.DESTINATION
 import static com.travix.medusa.busyflights.domain.busyflights.FlightSearch.ORIGIN
 import static TimePeriod.DEPARTURE_DATE
