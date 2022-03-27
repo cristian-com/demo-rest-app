@@ -8,6 +8,7 @@ import com.travix.medusa.busyflights.domain.busyflights.FlightSupplier;
 import com.travix.medusa.busyflights.domain.busyflights.IATACode;
 import com.travix.medusa.busyflights.domain.busyflights.TimePeriod;
 import com.travix.medusa.busyflights.domain.busyflights.services.FlightSupplierGateway;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +17,7 @@ import java.util.Objects;
 
 import static com.travix.medusa.busyflights.buildingblocks.utils.BigDecimals.*;
 
-
+@Component
 public class ThoughJetFlightSupplier implements FlightSupplierGateway {
 
     private final ThoughJetFlightSupplier.ThoughJetGetFlightsResponseAdapter adapter;

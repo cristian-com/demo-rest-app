@@ -11,9 +11,21 @@ public class QueryDispatcher {
 
     public <Q extends Query, R> R dispatch(@NotNull QueryHandler<Q, R> handler, @NotNull Q query) {
         try {
-            return handler.handle(query);
+
+            if (log.isTraceEnabled()) {
+                log.trace("{} query {} starting with params {}", query.getClass().getName(), query.id(), query);
+            }
+
+            R response = handler.handle(query);
+
+            if (log.isTraceEnabled()) {
+                log.trace("{} query {} responded with {}", query.getClass().getName(), query.id(), response);
+            }
+
+            return response;
         } catch (Exception e) {
-            log.error("There was an error processing the query.", e);
+            log.error("There was an error processing the query " +
+                    query.getClass().getName() + " id: " + query.id(), e);
             throw e;
         }
     }
