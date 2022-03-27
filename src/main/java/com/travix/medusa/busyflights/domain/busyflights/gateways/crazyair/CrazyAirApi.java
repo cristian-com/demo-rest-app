@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -15,12 +16,12 @@ import java.util.stream.Stream;
 
 /**
  * I'm leaving this impl a bit raw just because of time.
- *
+ * <p>
  * I would tackle it:
- *
+ * <p>
  * - Creating first an HTTP component that would be shared across all gateways.
- *          It could be using the spring.WebClient, apache client, any other client really
- *               but would go for the spring one just because integrates nicely even if my impl is not really reactive
+ * It could be using the spring.WebClient, apache client, any other client really
+ * but would go for the spring one just because integrates nicely even if my impl is not really reactive
  */
 @Component
 public class CrazyAirApi {
@@ -52,9 +53,10 @@ public class CrazyAirApi {
                     .mapToObj(i -> getDummyFlight(rand, crazyAirRequest.origin(), crazyAirRequest.destination(), crazyAirRequest.departureDate()))
                     .toList();
 
-            List<CrazyAirResponse> wayBackFlights = IntStream.range(0, results)
-                    .mapToObj(i -> getDummyFlight(rand, crazyAirRequest.destination(), crazyAirRequest.origin(), crazyAirRequest.departureDate()))
-                    .toList();
+            List<CrazyAirResponse> wayBackFlights = crazyAirRequest.returnDate() == null ? Collections.emptyList() :
+                    IntStream.range(0, results)
+                            .mapToObj(i -> getDummyFlight(rand, crazyAirRequest.destination(), crazyAirRequest.origin(), crazyAirRequest.returnDate()))
+                            .toList();
 
             return Stream.of(wayThereFlights, wayBackFlights).flatMap(List::stream).toList();
         }
@@ -75,8 +77,9 @@ public class CrazyAirApi {
                 cabinDummyValues.get(rand.nextInt(cabinDummyValues.size())),
                 origin,
                 destination,
-                time.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                time.plusHours(rand.nextInt(2, 30))
+                time.plusMinutes(rand.nextInt(50, 180))
+                        .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                time.plusHours(rand.nextInt(4, 30))
                         .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
     }
 

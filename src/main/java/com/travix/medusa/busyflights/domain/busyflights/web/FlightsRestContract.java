@@ -22,7 +22,7 @@ public final class FlightsRestContract {
 
     public record Response(AirportOptions outwardOptions, AirportOptions returnOptions) { }
 
-    public record AirportOptions(String code, List<FlightOption> options) { }
+    public record AirportOptions(String origin, String destination, List<FlightOption> options) { }
 
     public record FlightOption(String airline,
                                String supplier,

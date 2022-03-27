@@ -56,10 +56,12 @@ public class FlightsController {
             return new FlightsRestContract.Response(
                     new FlightsRestContract.AirportOptions(
                             search.getOrigin().getTextCode(),
+                            search.getDestination().getTextCode(),
                             getOptions(search.getResults().getOutwardOptions())
                     ),
                     new FlightsRestContract.AirportOptions(
                             search.getDestination().getTextCode(),
+                            search.getOrigin().getTextCode(),
                             getOptions(search.getResults().getReturnOptions())
                     ));
         }
@@ -74,7 +76,7 @@ public class FlightsController {
                     flight.supplier().toString(),
                     flight.fare().setScale(2, RoundingMode.HALF_UP).toString(),
                     Dates.isoDateTime(flight.timePeriod().getDepartureTime()),
-                    Dates.isoDateTime(flight.timePeriod().getDepartureTime())
+                    Dates.isoDateTime(flight.timePeriod().getReturnTime())
             );
         }
 
