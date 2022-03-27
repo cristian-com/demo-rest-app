@@ -4,9 +4,12 @@ import com.travix.medusa.busyflights.buildingblocks.utils.ArgumentAssertions;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(of = "id")
@@ -22,6 +25,7 @@ public class FlightSearch {
     private IATACode destination;
     private TimePeriod timePeriod;
     private PassengersNumber passengers;
+    private FlightSearchResult results;
 
     // Main constructor, All args
     public FlightSearch(Serializable id, IATACode origin, IATACode destination, TimePeriod timePeriod,
@@ -40,7 +44,26 @@ public class FlightSearch {
     @Builder
     public FlightSearch(Serializable id, String origin, String destination, LocalDate departureDate,
                         LocalDate returnDate, int passengers) {
-        this(id, new IATACode(origin), new IATACode(destination), TimePeriod.of(departureDate, returnDate), new PassengersNumber(passengers));
+        this(id,
+                new IATACode(origin),
+                new IATACode(destination),
+                TimePeriod.of(departureDate, returnDate),
+                new PassengersNumber(passengers));
+    }
+
+    private void setResults(List<Flight> flights) {
+        var executionTime = Instant.now();
+
+        if (CollectionUtils.isEmpty(flights)) {
+            results = new FlightSearchResult(id, executionTime, null, null);
+            return;
+        }
+
+        // I'm just dropping not matching results, but it would probably better to log such records
+        // also, just matching by origin-destination, but dates should be also considered
+        results = new FlightSearchResult(id, executionTime,
+                flights.stream().filter(flight -> flight.departure().equals(origin)).toList(),
+                flights.stream().filter(flight -> flight.departure().equals(destination)).toList());
     }
 
 }
